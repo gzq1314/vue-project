@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    width: 800px;
+    margin: 50px auto;
+}
+
+a {
+    text-decoration: none;
+    height: 50px;
+    width: 25%;
+    background-color: pink;
+    float: left;
+    line-height: 50px;
+    text-align: center;
+}
+
+.box {
+    border: 1px solid #ccc;
+    height: 400px;
+}
