@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>inserted案例</title>
+    <style>
+        .box {
+            width: 800px;
+            height: 800px;
+            position: relative;
+            background: #000;
+            margin: auto;
+        }
+
+        .img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: rotateZ(0deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.directive('ball', {
+            inserted: function (el) {
+                var i = 0;
+                el.onclick = function (e) {
+                    i += 10;
+                    el.style.transform = "rotateZ(" + i + "deg)"
+                };
+                el.onmousedown = function (e) {
+                    var l = e.clientX - el.offsetLeft;
+                    var t = e.clientY - el.offsetTop;
+                    document.onmousemove = function (e) {
+                        el.style.left = (e.clientX - l) + 'px';
+                        el.style.top = (e.clientY - t) + 'px'
+                    };
+                    el.onmouseup = function () {
+                        document.onmousemove = null;
+                        el.onmouseup = null;
+                    }
+                }
+            }
+        });
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                arr: ['img/1.gif', 'img/2.gif', 'img/3.gif', 'img/4.gif', 'img/5.gif','img/6.gif']
+            },
+            template: `
+                <div>
+                    <div class="box">
+                            <img :src="itme" alt="" v-for="itme in arr"  class="img" v-ball>
+                    <div>
+                <div>
+            `,
+        })
+    </script>
+</body>
+
+</html>

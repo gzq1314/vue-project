@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="../vue.js"></script>
+    <script>
+        //Vue.set(target,key,value)普通的情况下对Vue实例里面的数据进行更改，
+        //数据改掉了，但是呈现在页面的视图并没有发生变化，所以借用该方法视图也会跟着刷新.
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                arr: ['熊大', '熊二', '吉吉', '毛毛', '光头强']
+            },
+            template: `
+                <div>
+                    <ul>
+                        <li v-for="item in arr" v-html="item"></li>
+                    </ul>
+                </div>
+            `
+        });
+        Vue.set(vm.arr, 0, '小哥哥');
+    </script>
+</body>
+
+</html>

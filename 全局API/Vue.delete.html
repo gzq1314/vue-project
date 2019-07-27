@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="../vue.js"></script>
+    <script>
+        //Vue.delete(target,key)用法和原理与set添加元素是一样的道理
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    name: '张三',
+                    age: 22,
+                    gender: '北京'
+                }
+            },
+            template: `
+                <div>
+                    <ul>
+                        <li v-for="(val,key) in obj">{{key}}----{{val}}</li>
+                    </ul>
+                </div>
+            `
+        });
+        Vue.delete(vm.obj, "age");
+    </script>
+</body>
+
+</html>

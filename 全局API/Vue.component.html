@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="app1"></div>
+    <script src="../vue.js"></script>
+    <script>
+        //全局注册
+        Vue.component('like', {
+            template: `
+                <div>
+                    <h2>这是一个全局组件</h2>
+                    <p>全局组件内容省略!</p>
+                </div>
+            `
+        })
+        //局部注册
+        new Vue({
+            el: '#app1',
+            components: {
+                'love': {
+                    template: `
+                        <div>
+                            <h2>这是一个局部组件</h2>
+                            <p>布局组件内容同样省略！</p>
+                        </div>
+                    `
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

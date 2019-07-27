@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>数字变美元</h3>
+        <input type="text" placeholder="数字变美元" v-model="num">
+        <span>{{ num | money }}</span>
+        <h3>内容反转</h3>
+        <input type="text" placeholder="内容反转" v-model="message">
+        <span>{{ message | reverse }}</span>
+    </div>
+    <div id="demo">
+        <h3>过滤字符串的数字,并将剩余部分以数组形式输出</h3>
+        <input type="text" placeholder="输入字符串" v-model="msg">
+        <span>{{ msg | delNum | arr }}</span>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        //Vue.filter(id,[definition])注册或获取全局过滤器，主要用于在实例里面的数据不改变的情况下，在页面对渲染进dom的数据进行过滤处理
+        //注册
+        Vue.filter('my-filter', function (value) {
+            //返回处理后的值
+        })
+        //getter,返回已注册的过滤器
+        var myFilter = Vue.filter('my-filter')
+
+        Vue.filter("money", function (value) {
+            return "$" + value
+        });
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                num: 100,
+                message: ''
+            },
+            filters: {
+                reverse: function (value) {
+                    return value.split('').reverse().join('');
+                }
+            }
+        })
+
+        //过滤字符串中的数字，并将剩余部分以数组形式输出
+        Vue.filter('delNum', function (value) {
+            return value.replace(/[0-9]/g, '')
+        });
+        Vue.filter('arr', function (value) {
+            return value.split('')
+        })
+        var app = new Vue({
+            el: '#demo',
+            data: {
+                msg: ''
+            }
+        })
+    </script>
+</body>
+
+</html>

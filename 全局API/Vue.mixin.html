@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>混入</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="app1"></div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.mixin({
+            created: function () {
+                this.hello()
+            },
+            methods: {
+                hello: function () {
+                    console.log('这是混合器添加的hello方法');
+                },
+                say: function () {
+                    console.log('这是混合器添加的say方法');
+                }
+            }
+        });
+        Vue.prototype.myapp = function () {
+            console.log('我是外来入侵者')
+        };
+        let app = new Vue({
+            el: '#app',
+            methods: {
+                list: function () {
+                    console.log('这是app实例本身的list方法')
+                },
+                say: function () {
+                    console.log('这是app实例本身的say方法')
+                }
+            }
+        });
+        let app1 = new Vue({
+            el: '#app1',
+        })
+        app.hello(); //第一个输出的是混合器的hello方法，此刻刚开始创建实例app
+        app.list();  //第二个属于混合器的hello方法，因为app本身实例没有这个方法，所以是混合器为其添加的
+        app.say();   //第三个输出的是混合器的hello方法，此刻刚开始创建实例app1
+        app1.hello(); //第四个输出的是app本身的list方法
+        app1.say();   //第五个输出的是app实例的say方法。因为app实例中用有该方法，会将混合器添加的say方法覆盖掉
+        app.myapp();  //对于六和七由于app1没有自己的hello和say方法，所以只能用混合器为他添加的方法
+        console.log(app._proto_)  //第八个属于Vue原型里面我们添加进去的myapp方法
+    </script>
+</body>
+
+</html>
